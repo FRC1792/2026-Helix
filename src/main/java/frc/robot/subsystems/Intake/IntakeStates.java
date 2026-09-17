@@ -8,5 +8,7 @@ package frc.robot.subsystems.Intake;
 public enum IntakeStates {
     INTAKE,
     OUTTAKE,
+    PIVOT_UP,
+    PIVOT_DOWN,
     STOP
 }

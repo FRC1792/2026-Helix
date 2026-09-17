@@ -26,6 +26,9 @@ public class Intake extends SubsystemBase {
 
   private TalonFX intakeMotor;
   private TalonFXConfiguration intakeConfig;
+  
+  private TalonFX pivotMotor;
+  private TalonFXConfiguration pivotConfig; 
 
   private MotionMagicVoltage m_motionRequest;
 
@@ -34,16 +37,40 @@ public class Intake extends SubsystemBase {
 
   public Intake() {
   
-  //intakeMotor = new TalonFX(IntakeConstants.kIntakeMotorId);
+    intakeMotor = new TalonFX(IntakeConstants.kIntakeMotorId);
 
-  // intakeConfig = new TalonFXConfiguration()
-  //                     .withMotorOutput(new MotorOutputConfigs()
-  //                                           .withInverted(InvertedValue.Clockwise_Positive)
-  //                                           .withNeutralMode(NeutralModeValue.Brake))     
-    //                  .withCurrentLimits( new currentlimitsconfig())
-    //                                        .withSupplyCurrentLimit(IntakeConstants.kIntakeSupplyCurrentLimit());
+    intakeConfig = new TalonFXConfiguration()
+                       .withMotorOutput(new MotorOutputConfigs()
+                                             .withInverted(InvertedValue.Clockwise_Positive)
+                                             .withNeutralMode(NeutralModeValue.Brake))     
+                       .withCurrentLimits(new CurrentLimitsConfigs()
+                                             .withSupplyCurrentLimit(IntakeConstants.kIntakeSupplyCurrentLimit));
+    intakeMotor.getConfigurator().apply(intakeConfig);
+
+
+    pivotMotor = new TalonFX(IntakeConstants.kPivotMotorId);
+
   }
   
+
+  public void setGoal(IntakeStates desiredState) {
+    currentState = desiredState;
+    switch(desiredState){
+      case INTAKE :
+        intakeMotor.set(IntakeConstants.kSpeed);
+        break;
+      case OUTTAKE :
+        intakeMotor.set(-IntakeConstants.kSpeed);
+        break;
+      //case PIVOT_UP;
+        //break;
+      //case PIVOT_DOWN;
+       // break;
+      case STOP :
+        intakeMotor.stopMotor();
+        break;
+    }
+  }
 
   @Override
   public void periodic() {

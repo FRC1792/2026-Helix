@@ -5,4 +5,7 @@
 package frc.robot.subsystems.Shooter;
 
 /** Add your docs here. */
-public class ShooterState {}
+public enum ShooterState {
+    SHOOT,
+    STOP
+}

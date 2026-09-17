@@ -5,4 +5,11 @@
 package frc.robot.subsystems.Intake;
 
 /** Add your docs here. */
-public class IntakeConstants {}
+public class IntakeConstants {
+
+    public static final double kIntakeSupplyCurrentLimit = 35;
+    public static final int kIntakeMotorId = 15;
+    public static final double kSpeed = .50;
+    public static final int kPivotMotorId = 17;  
+
+}
