@@ -33,6 +33,7 @@ public class Intake extends SubsystemBase {
   private MotionMagicVoltage m_motionRequest;
 
   private IntakeStates currentState = IntakeStates.STOP;
+  private IntakePivotState currentPivotState = IntakePivotState.STOP;
 
 
   public Intake() {
@@ -49,7 +50,13 @@ public class Intake extends SubsystemBase {
 
 
     pivotMotor = new TalonFX(IntakeConstants.kPivotMotorId);
-
+    pivotConfig = new TalonFXConfiguration()
+                      .withMotorOutput(new MotorOutputConfigs()
+                                              .withInverted(InvertedValue.Clockwise_Positive)
+                                              .withNeutralMode(NeutralModeValue.Brake))
+                        .withCurrentLimits(new CurrentLimitsConfigs()
+                                              .withSupplyCurrentLimit(IntakeConstants.kIntakeSupplyCurrentLimit));
+    pivotMotor.getConfigurator().apply(pivotConfig);
   }
   
 
@@ -62,16 +69,28 @@ public class Intake extends SubsystemBase {
       case OUTTAKE :
         intakeMotor.set(-IntakeConstants.kSpeed);
         break;
-      //case PIVOT_UP;
-        //break;
-      //case PIVOT_DOWN;
-       // break;
       case STOP :
         intakeMotor.stopMotor();
         break;
     }
   }
 
+  public void setPivotGoal(IntakePivotState desiredState) {
+    currentPivotState = desiredState;
+    switch(desiredState){
+      case PIVOT_UP :
+        pivotMotor.set(IntakeConstants.kPivotSpeed);
+        break;
+      case PIVOT_DOWN :
+        pivotMotor.set(-IntakeConstants.kPivotSpeed);
+        break;
+      case STOP :
+        pivotMotor.stopMotor();
+        break;
+    }
+  }
+
+//GRAAAAAAAAAAAAAAAHHHHHHHHHHHHH bruh
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
