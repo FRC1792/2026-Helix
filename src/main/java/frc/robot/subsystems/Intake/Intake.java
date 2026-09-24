@@ -32,7 +32,7 @@ public class Intake extends SubsystemBase {
 
   private MotionMagicVoltage m_motionRequest;
 
-  private IntakeStates currentState = IntakeStates.STOP;
+  private IntakeState currentState = IntakeState.STOP;
   private IntakePivotState currentPivotState = IntakePivotState.STOP;
 
 
@@ -60,7 +60,7 @@ public class Intake extends SubsystemBase {
   }
   
 
-  public void setGoal(IntakeStates desiredState) {
+  public void setGoal(IntakeState desiredState) {
     currentState = desiredState;
     switch(desiredState){
       case INTAKE :
