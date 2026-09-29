@@ -6,8 +6,9 @@ package frc.robot.subsystems.Shooter;
 
 /** Add your docs here. */
 public class ShooterConstants {
-
     public static final int kShooterMotorId = 19;
+
     public static final double kShooterCurrentLimit = 35;
-    public static final double kSpeed = 0.50000000; 
+
+    public static final double kSpeed = 0.50; 
 }

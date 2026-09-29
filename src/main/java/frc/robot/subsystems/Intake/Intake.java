@@ -6,20 +6,12 @@ package frc.robot.subsystems.Intake;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-import org.littletonrobotics.junction.Logger;
-
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
-import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.MotorOutputConfigs;
-import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
@@ -30,11 +22,8 @@ public class Intake extends SubsystemBase {
   private TalonFX pivotMotor;
   private TalonFXConfiguration pivotConfig; 
 
-  private MotionMagicVoltage m_motionRequest;
-
   private IntakeState currentState = IntakeState.STOP;
   private IntakePivotState currentPivotState = IntakePivotState.STOP;
-
 
   public Intake() {
   
@@ -90,7 +79,6 @@ public class Intake extends SubsystemBase {
     }
   }
 
-//GRAAAAAAAAAAAAAAAHHHHHHHHHHHHH bruh
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

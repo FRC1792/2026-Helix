@@ -18,6 +18,8 @@ public class Indexer extends SubsystemBase {
   private TalonFX indexerMotor;
   private TalonFXConfiguration indexerConfig;
 
+  private IndexerState currentState = IndexerState.STOP;
+  
   public Indexer() {
     indexerMotor = new TalonFX(IndexerConstants.kIndexerMotorId);
     indexerConfig = new TalonFXConfiguration()
@@ -30,8 +32,8 @@ public class Indexer extends SubsystemBase {
   }
 
   public void setGoal(IndexerState desiredState) {
-    IndexerState currentState = desiredState;
-    switch (currentState) {
+    currentState = desiredState;
+    switch (desiredState) {
       case INDEX:
         indexerMotor.set(IndexerConstants.kIndexerInSpeed);
         break;

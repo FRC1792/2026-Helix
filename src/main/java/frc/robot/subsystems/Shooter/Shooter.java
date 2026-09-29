@@ -25,17 +25,14 @@ public class Shooter extends SubsystemBase {
   private ShooterState currentState = ShooterState.STOP;
 
   public Shooter() {
-
-  shooterMotor = new TalonFX(ShooterConstants.kShooterMotorId);
-  shooterConfig = new TalonFXConfiguration()
-                    .withMotorOutput(new MotorOutputConfigs()
-                                        .withInverted(InvertedValue.Clockwise_Positive)
-                                        .withNeutralMode(NeutralModeValue.Brake))
-                    .withCurrentLimits(new CurrentLimitsConfigs()
-                                        .withSupplyCurrentLimit(ShooterConstants.kShooterCurrentLimit));
-  shooterMotor.getConfigurator().apply(shooterConfig);
-    
-
+    shooterMotor = new TalonFX(ShooterConstants.kShooterMotorId);
+    shooterConfig = new TalonFXConfiguration()
+                      .withMotorOutput(new MotorOutputConfigs()
+                                          .withInverted(InvertedValue.Clockwise_Positive)
+                                          .withNeutralMode(NeutralModeValue.Brake))
+                      .withCurrentLimits(new CurrentLimitsConfigs()
+                                          .withSupplyCurrentLimit(ShooterConstants.kShooterCurrentLimit));
+    shooterMotor.getConfigurator().apply(shooterConfig);
   }
 
   public void setGoal(ShooterState desiredState) {
@@ -47,7 +44,6 @@ public class Shooter extends SubsystemBase {
       case STOP :
         shooterMotor.set(ShooterConstants.kSpeed);
         break;
-
     }
   }
 
